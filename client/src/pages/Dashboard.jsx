@@ -14,15 +14,15 @@ const Dashboard = () => {
         {/* Welcome Banner */}
         <div className="bg-white rounded-2xl p-8 mb-10 shadow-sm border border-gray-100 flex flex-col md:flex-row items-center justify-between relative overflow-hidden">
           <div className="relative z-10">
-            <h1 className="text-3xl font-extrabold text-gray-900 mb-2">
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">
               Welcome back, {user?.name}! 👋
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-500 text-lg">
               Here's an overview of your goals and progress. Let's make today productive.
             </p>
           </div>
           <div className="mt-6 md:mt-0 relative z-10">
-            <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-bold bg-[#eef2ff] text-[#5263f9]">
+            <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-[#eef2ff] text-[#5263f9]">
               Role: {user?.role}
             </span>
           </div>
@@ -36,7 +36,7 @@ const Dashboard = () => {
           
           {/* Core Employee Features */}
           <section>
-            <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+            <h2 className="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
               <span className="w-1.5 h-6 bg-[#5263f9] rounded-full inline-block"></span>
               Your Workspace
             </h2>
@@ -46,32 +46,32 @@ const Dashboard = () => {
                 <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                   <FiPlusCircle className="text-2xl" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">Create Goals</h3>
-                <p className="text-sm text-gray-600">Set new objectives and key results for the upcoming quarter.</p>
+                <h3 className="font-semibold text-gray-800 mb-2">Create Goals</h3>
+                <p className="text-sm text-gray-500">Set new objectives and key results for the upcoming quarter.</p>
               </a>
 
               <a href="/my-goals" className="group bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-[#10b981]/30 transition-all hover:-translate-y-1">
                 <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
                   <FiList className="text-2xl" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">View Goals</h3>
-                <p className="text-sm text-gray-600">Track your progress and review your current active targets.</p>
+                <h3 className="font-semibold text-gray-800 mb-2">View Goals</h3>
+                <p className="text-sm text-gray-500">Track your progress and review your current active targets.</p>
               </a>
 
               <a href="/checkins" className="group bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-[#f59e0b]/30 transition-all hover:-translate-y-1">
                 <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4 group-hover:bg-amber-500 group-hover:text-white transition-colors">
                   <FiCheckSquare className="text-2xl" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">Quarterly Check-ins</h3>
-                <p className="text-sm text-gray-600">Submit your quarterly reviews and get manager feedback.</p>
+                <h3 className="font-semibold text-gray-800 mb-2">Quarterly Check-ins</h3>
+                <p className="text-sm text-gray-500">Submit your quarterly reviews and get manager feedback.</p>
               </a>
 
               <a href="/analytics" className="group bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-[#ec4899]/30 transition-all hover:-translate-y-1">
                 <div className="w-12 h-12 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center mb-4 group-hover:bg-pink-500 group-hover:text-white transition-colors">
                   <FiBarChart2 className="text-2xl" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">Analytics</h3>
-                <p className="text-sm text-gray-600">View detailed metrics and visual insights on your performance.</p>
+                <h3 className="font-semibold text-gray-800 mb-2">Analytics</h3>
+                <p className="text-sm text-gray-500">View detailed metrics and visual insights on your performance.</p>
               </a>
 
             </div>
@@ -80,7 +80,7 @@ const Dashboard = () => {
           {/* Elevated Privileges */}
           {(user?.role === "MANAGER" || user?.role === "ADMIN") && (
             <section>
-              <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+              <h2 className="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-purple-600 rounded-full inline-block"></span>
                 Administration
               </h2>
@@ -92,7 +92,7 @@ const Dashboard = () => {
                       <div className="w-12 h-12 rounded-xl bg-white/20 text-white flex items-center justify-center mb-4 backdrop-blur-sm">
                         <FiBriefcase className="text-2xl" />
                       </div>
-                      <h3 className="font-bold text-white mb-2">Manager Panel</h3>
+                      <h3 className="font-semibold text-white mb-2">Manager Panel</h3>
                       <p className="text-sm text-purple-100">Review team goals, approve check-ins, and track team analytics.</p>
                     </div>
                     {/* Decorative */}
@@ -106,7 +106,7 @@ const Dashboard = () => {
                       <div className="w-12 h-12 rounded-xl bg-white/20 text-white flex items-center justify-center mb-4 backdrop-blur-sm">
                         <FiShield className="text-2xl" />
                       </div>
-                      <h3 className="font-bold text-white mb-2">Admin Panel</h3>
+                      <h3 className="font-semibold text-white mb-2">Admin Panel</h3>
                       <p className="text-sm text-red-100">Manage system users, global settings, and platform administration.</p>
                     </div>
                     {/* Decorative */}

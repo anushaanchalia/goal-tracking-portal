@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --text: #111827; /* Darker default text */
-  --text-h: #030712;
+  --text: #4b5563; /* Softer dark gray, not harsh black */
+  --text-h: #111827;
   --bg: #fff;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
@@ -50,8 +50,8 @@
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #f3f4f6;
-    --text-h: #ffffff;
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
     --bg: #16171d;
     --border: #2e303a;
     --code-bg: #1f2028;
@@ -87,7 +87,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading);
-  /* Removed color: inherit to allow Tailwind classes to work perfectly */
+  color: inherit;
 }
 
 code, .counter {
@@ -118,7 +118,7 @@ input, button, textarea, select {
 }
 
 input::placeholder, textarea::placeholder {
-  color: #6b7280; /* Darker placeholder */
+  color: #9ca3af;
 }
 
 input, textarea, select {
