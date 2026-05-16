@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Login = () => {
@@ -66,67 +65,109 @@ const Login = () => {
 
   return (
 
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 px-4">
 
-      <form
-        onSubmit={handleLogin}
-        className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md"
-      >
+      <div className="w-full max-w-md">
 
-        <h1 className="text-3xl font-bold mb-6 text-center">
-          Goal Portal Login
-        </h1>
+        {/* Card */}
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter Email"
-          className="w-full border p-3 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter Password"
-          className="w-full border p-3 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          onChange={handleChange}
-          required
-        />
-
-        <button
-          type="submit"
-          disabled={loading}
-          className={`w-full text-white p-3 rounded-lg transition ${
-            loading
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
+        <form
+          onSubmit={handleLogin}
+          className="backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl rounded-3xl p-8"
         >
 
-          {loading
-            ? "Logging in..."
-            : "Login"}
+          {/* Heading */}
 
-        </button>
+          <div className="text-center mb-8">
 
-        <p className="text-center mt-5 text-gray-600">
+            <h1 className="text-4xl font-bold text-white mb-3">
+              Goal Portal
+            </h1>
 
-          Don’t have an account?
+            <p className="text-gray-200">
+              Login to continue your performance journey
+            </p>
 
-          {" "}
+          </div>
 
-          <a
-            href="/register"
-            className="text-blue-600 font-semibold hover:underline"
+          {/* Email */}
+
+          <div className="mb-5">
+
+            <label className="block text-white mb-2 font-medium">
+              Email
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full p-4 rounded-xl bg-white/20 border border-white/20 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            />
+
+          </div>
+
+          {/* Password */}
+
+          <div className="mb-6">
+
+            <label className="block text-white mb-2 font-medium">
+              Password
+            </label>
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="w-full p-4 rounded-xl bg-white/20 border border-white/20 text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            />
+
+          </div>
+
+          {/* Button */}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full py-4 rounded-xl font-semibold text-lg transition-all duration-300 ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-white text-blue-700 hover:bg-blue-100 hover:scale-[1.02]"
+            }`}
           >
-            Register
-          </a>
 
-        </p>
+            {loading
+              ? "Logging in..."
+              : "Login"}
 
-      </form>
+          </button>
+
+          {/* Register */}
+
+          <p className="text-center text-gray-200 mt-6">
+
+            Don’t have an account?
+
+            {" "}
+
+            <a
+              href="/register"
+              className="text-white font-bold hover:underline"
+            >
+              Register
+            </a>
+
+          </p>
+
+        </form>
+
+      </div>
 
     </div>
 
