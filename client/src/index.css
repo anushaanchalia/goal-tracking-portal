@@ -93,17 +93,7 @@
 
 }
 
-/* Global Reset */
-
-* {
-
-  margin: 0;
-
-  padding: 0;
-
-  box-sizing: border-box;
-
-}
+/* Global Reset removed because Tailwind provides Preflight */
 
 /* Smooth Scroll */
 
@@ -149,16 +139,6 @@ h6 {
   font-family: var(--heading);
 
   color: inherit;
-
-  margin: 0;
-
-  line-height: normal;
-
-}
-
-p {
-
-  margin: 0;
 
 }
 
