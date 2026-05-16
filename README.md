@@ -18,6 +18,14 @@ https://goal-tracking-portal.onrender.com
 
 # 🚀 Features
 
+## 🎨 Premium UI/UX Design
+- **Clean SaaS Aesthetic:** Modern, high-end design language utilizing soft gradients, dynamic hovers, and premium typography.
+- **Strict Viewport Management:** App-like "no-scroll" experience ensuring the main layout remains locked while only content areas scroll.
+- **Compact & Responsive:** Highly dense, card-based grid layouts that maximize screen real estate across all devices.
+- **Unified Dashboards:** Consistent styling and interaction patterns across Employee, Manager, and Admin panels.
+
+---
+
 ## 🔐 Authentication & Authorization
 - JWT Authentication
 - Secure Password Hashing using bcrypt
