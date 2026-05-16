@@ -338,7 +338,7 @@ JWT_SECRET=your_secret_key
 
 # 👨‍💻 Author
 
-## Ayush
+## Anusha Anchalia
 
 Full Stack Developer
 

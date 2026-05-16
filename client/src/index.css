@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --text: #4b5563; /* Softer dark gray, not harsh black */
+  --text: #374151; /* Crisp dark gray */
   --text-h: #111827;
   --bg: #fff;
   --border: #e5e4e7;
@@ -87,7 +87,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading);
-  color: inherit;
+  /* Removed color: inherit */
 }
 
 code, .counter {
