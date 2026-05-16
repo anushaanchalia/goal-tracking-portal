@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String   @unique
+  password    String
+  role        String
+  department  String?
+  managerId   Int?
+  goals       Goal[]
+}
+
+model Goal {
+  id               Int      @id @default(autoincrement())
+  title            String
+  description      String
+  thrustArea       String
+  uomType          String
+  targetValue      Float
+  achievementValue Float    @default(0)
+  weightage        Float
+  status           String   @default("Not Started")
+  isLocked         Boolean  @default(false)
+  approvalStatus   String   @default("PENDING")
+  managerComment   String?
+
+  employeeId Int
+  employee   User @relation(fields: [employeeId], references: [id])
+
+  createdAt DateTime @default(now())
+  checkins Checkin[]
+  auditLogs AuditLog[]
+
+}
+
+model Checkin {
+  id Int @id @default(autoincrement())
+
+  quarter String
+
+  plannedValue Float
+
+  actualValue Float
+
+  progressScore Float
+
+  employeeComment String?
+
+  managerComment String?
+
+  createdAt DateTime @default(now())
+
+  goalId Int
+
+  goal Goal @relation(fields: [goalId], references: [id])
+}
+
+model AuditLog {
+  id Int @id @default(autoincrement())
+
+  action String
+
+  oldValue String?
+
+  newValue String?
+
+  changedAt DateTime @default(now())
+
+  goalId Int
+
+  goal Goal @relation(fields: [goalId], references: [id])
+}

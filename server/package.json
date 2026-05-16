@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "Goal Tracking Portal Backend",
+  "license": "ISC",
+
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "build": "prisma generate"
+  },
+
+  "keywords": [
+    "goal-tracking",
+    "express",
+    "prisma",
+    "postgresql"
+  ],
+
+  "author": "",
+
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "json2csv": "^6.0.0-alpha.2",
+    "jsonwebtoken": "^9.0.3",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^8.0.7",
+    "prisma": "^5.22.0"
+  },
+
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
