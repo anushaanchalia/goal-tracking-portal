@@ -17,7 +17,7 @@ const Dashboard = () => {
             <h1 className="text-3xl font-extrabold text-gray-900 mb-2">
               Welcome back, {user?.name}! 👋
             </h1>
-            <p className="text-gray-500 text-lg">
+            <p className="text-gray-600 text-lg">
               Here's an overview of your goals and progress. Let's make today productive.
             </p>
           </div>
@@ -47,7 +47,7 @@ const Dashboard = () => {
                   <FiPlusCircle className="text-2xl" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">Create Goals</h3>
-                <p className="text-sm text-gray-500">Set new objectives and key results for the upcoming quarter.</p>
+                <p className="text-sm text-gray-600">Set new objectives and key results for the upcoming quarter.</p>
               </a>
 
               <a href="/my-goals" className="group bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-[#10b981]/30 transition-all hover:-translate-y-1">
@@ -55,7 +55,7 @@ const Dashboard = () => {
                   <FiList className="text-2xl" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">View Goals</h3>
-                <p className="text-sm text-gray-500">Track your progress and review your current active targets.</p>
+                <p className="text-sm text-gray-600">Track your progress and review your current active targets.</p>
               </a>
 
               <a href="/checkins" className="group bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-[#f59e0b]/30 transition-all hover:-translate-y-1">
@@ -63,7 +63,7 @@ const Dashboard = () => {
                   <FiCheckSquare className="text-2xl" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">Quarterly Check-ins</h3>
-                <p className="text-sm text-gray-500">Submit your quarterly reviews and get manager feedback.</p>
+                <p className="text-sm text-gray-600">Submit your quarterly reviews and get manager feedback.</p>
               </a>
 
               <a href="/analytics" className="group bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-[#ec4899]/30 transition-all hover:-translate-y-1">
@@ -71,7 +71,7 @@ const Dashboard = () => {
                   <FiBarChart2 className="text-2xl" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">Analytics</h3>
-                <p className="text-sm text-gray-500">View detailed metrics and visual insights on your performance.</p>
+                <p className="text-sm text-gray-600">View detailed metrics and visual insights on your performance.</p>
               </a>
 
             </div>

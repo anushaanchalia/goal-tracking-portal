@@ -45,12 +45,12 @@ const AdminDashboard = () => {
           
           <div className="mb-6">
             <h1 className="text-2xl font-extrabold text-gray-900">Admin Panel</h1>
-            <p className="text-sm text-gray-500">System audit logs and administrative overrides.</p>
+            <p className="text-sm text-gray-600">System audit logs and administrative overrides.</p>
           </div>
 
           {logs.length === 0 && (
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 text-center">
-              <p className="text-gray-500 text-sm">No audit logs available at this time.</p>
+              <p className="text-gray-600 text-sm">No audit logs available at this time.</p>
             </div>
           )}
 
@@ -61,24 +61,24 @@ const AdminDashboard = () => {
                   
                   {/* Action Badge */}
                   <div className="flex justify-between items-start mb-3">
-                    <h2 className="text-sm font-bold text-gray-400 uppercase tracking-wide">Audit Log</h2>
-                    <span className="bg-[#eef2ff] text-[#4f46e5] px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide">
+                    <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide">Audit Log</h2>
+                    <span className="bg-[#eef2ff] text-[#4f46e5] px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wide">
                       {log.action}
                     </span>
                   </div>
 
                   {/* Goal Info */}
                   <div className="mb-4">
-                    <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1">Target Goal</p>
+                    <p className="text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Target Goal</p>
                     <p className="text-sm font-bold text-gray-900 leading-tight">{log.goal.title}</p>
                   </div>
 
                   {/* Change Delta */}
                   <div className="bg-gray-50 rounded-lg p-3 mb-4 grid grid-cols-1 gap-2 border border-gray-100">
-                    <p className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Change Record</p>
+                    <p className="text-xs font-bold text-gray-600 uppercase tracking-wider">Change Record</p>
                     <div className="flex items-center gap-2 text-sm font-mono bg-white p-2 rounded border border-gray-200">
                       <span className="text-red-500 line-through decoration-red-300">{log.oldValue}</span>
-                      <span className="text-gray-400">→</span>
+                      <span className="text-gray-500">→</span>
                       <span className="text-green-600 font-bold">{log.newValue}</span>
                     </div>
                   </div>
@@ -86,8 +86,8 @@ const AdminDashboard = () => {
                   {/* Timestamp & Action */}
                   <div className="mt-auto flex items-end justify-between pt-2">
                     <div>
-                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Timestamp</p>
-                      <p className="text-xs text-gray-600 font-medium">
+                      <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Timestamp</p>
+                      <p className="text-xs text-gray-800 font-medium">
                         {new Date(log.changedAt).toLocaleString()}
                       </p>
                     </div>
@@ -95,7 +95,7 @@ const AdminDashboard = () => {
                     <button
                       onClick={() => unlockGoal(log.goal.id)}
                       disabled={loadingGoalId === log.goal.id}
-                      className={`text-[11px] font-bold uppercase tracking-wide px-4 py-2 rounded-lg transition-colors shadow-sm ${
+                      className={`text-xs font-bold uppercase tracking-wide px-4 py-2 rounded-lg transition-colors shadow-sm ${
                         loadingGoalId === log.goal.id
                           ? "bg-gray-400 text-white cursor-not-allowed"
                           : "bg-white border border-[#f43f5e] text-[#f43f5e] hover:bg-[#f43f5e] hover:text-white"

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
+  --text: #111827; /* Darker default text */
+  --text-h: #030712;
   --bg: #fff;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
@@ -33,21 +33,13 @@
     monospace;
 
   font: 18px/145% var(--sans);
-
   letter-spacing: 0.18px;
-
   color-scheme: light dark;
-
   color: var(--text);
-
   background: var(--bg);
-
   font-synthesis: none;
-
   text-rendering: optimizeLegibility;
-
   -webkit-font-smoothing: antialiased;
-
   -moz-osx-font-smoothing: grayscale;
 
   @media (max-width: 1024px) {
@@ -56,193 +48,99 @@
 }
 
 /* Dark Mode */
-
 @media (prefers-color-scheme: dark) {
-
   :root {
-
-    --text: #9ca3af;
-
-    --text-h: #f3f4f6;
-
+    --text: #f3f4f6;
+    --text-h: #ffffff;
     --bg: #16171d;
-
     --border: #2e303a;
-
     --code-bg: #1f2028;
-
     --accent: #c084fc;
-
     --accent-bg: rgba(192, 132, 252, 0.15);
-
     --accent-border: rgba(192, 132, 252, 0.5);
-
     --social-bg: rgba(47, 48, 58, 0.5);
-
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px,
       rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-
   }
-
   #social .button-icon {
-
     filter: invert(1) brightness(2);
-
   }
-
 }
-
-/* Global Reset removed because Tailwind provides Preflight */
-
-/* Smooth Scroll */
 
 html {
-
   scroll-behavior: smooth;
-
 }
-
-/* Body */
 
 body {
-
-  background-color: #f3f4f6;
-
-  font-family: sans-serif;
-
+  background-color: #f8fafc;
+  font-family: var(--sans);
   min-height: 100vh;
-
   overflow-x: hidden;
-
+  color: var(--text);
 }
-
-/* Root */
 
 #root {
-
   width: 100%;
-
   min-height: 100vh;
-
 }
 
-/* Typography */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading);
-
-  color: inherit;
-
+  /* Removed color: inherit to allow Tailwind classes to work perfectly */
 }
 
-/* Code */
-
-code,
-.counter {
-
+code, .counter {
   font-family: var(--mono);
-
   display: inline-flex;
-
   border-radius: 4px;
-
   color: var(--text-h);
-
 }
 
 code {
-
   font-size: 15px;
-
   line-height: 135%;
-
   padding: 4px 8px;
-
   background: var(--code-bg);
-
 }
-
-/* Buttons */
 
 button {
-
   cursor: pointer;
-
+  transition: all 0.3s ease;
 }
-
-/* Links */
 
 a {
-
   text-decoration: none;
-
 }
 
-input,
-button,
-textarea,
-select {
-
+input, button, textarea, select {
   font: inherit;
-
 }
 
-body {
-
-  overflow-x: hidden;
-
+input::placeholder, textarea::placeholder {
+  color: #6b7280; /* Darker placeholder */
 }
 
-/* Better Form Rendering */
-
-input::placeholder {
-  color: #9ca3af;
-}
-
-input {
+input, textarea, select {
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease,
     background-color 0.3s ease;
 }
 
-button {
-  transition:
-    all 0.3s ease;
-}
-
-/* Responsive */
-
 @media (max-width: 1024px) {
-
   .mobile-center {
     text-align: center;
   }
-
 }
 
 @media (max-width: 768px) {
-
   body {
     font-size: 14px;
   }
-
 }
 
-html,
-body,
-#root {
+html, body, #root {
   width: 100%;
   min-height: 100%;
-}
-
-body {
-  overflow-x: hidden;
 }
