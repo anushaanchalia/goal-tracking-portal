@@ -6,20 +6,12 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const Login = () => {
 
-  /* =========================
-     STATES
-  ========================== */
-
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   });
 
   const [loading, setLoading] = useState(false);
-
-  /* =========================
-     HANDLE INPUT CHANGE
-  ========================== */
 
   const handleChange = (e) => {
 
@@ -29,10 +21,6 @@ const Login = () => {
     });
 
   };
-
-  /* =========================
-     HANDLE LOGIN
-  ========================== */
 
   const handleLogin = async (e) => {
 
@@ -47,10 +35,6 @@ const Login = () => {
         formData
       );
 
-      /* =========================
-         STORE TOKEN
-      ========================== */
-
       localStorage.setItem(
         "token",
         response.data.token
@@ -61,25 +45,13 @@ const Login = () => {
         JSON.stringify(response.data.user)
       );
 
-      /* =========================
-         SUCCESS TOAST
-      ========================== */
-
-      toast.success(
-        "Login Successful"
-      );
+      toast.success("Login Successful");
 
       setLoading(false);
-
-      /* =========================
-         REDIRECT
-      ========================== */
 
       window.location.href = "/dashboard";
 
     } catch (error) {
-
-      console.log(error);
 
       toast.error(
         error.response?.data?.message ||
@@ -92,89 +64,64 @@ const Login = () => {
 
   };
 
-  /* =========================
-     UI
-  ========================== */
-
   return (
 
     <div className="min-h-screen bg-[#eef2ff] flex items-center justify-center px-6 py-10">
 
-      {/* =========================
-          MAIN CONTAINER
-      ========================== */}
+      <div className="w-full max-w-7xl bg-[#f7f8ff] rounded-[30px] overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-2">
 
-      <div className="w-full max-w-7xl bg-[#f8f9ff] rounded-[40px] overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-2">
+        {/* LEFT PANEL */}
 
-        {/* =========================================================
-            LEFT SIDE
-        ========================================================== */}
+        <div className="relative bg-gradient-to-br from-blue-500 to-purple-600 text-white px-12 py-10 overflow-hidden">
 
-        <div className="relative bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 overflow-hidden p-16 text-white">
+          {/* BACKGROUND SHAPES */}
 
-          {/* =========================
-              BACKGROUND CIRCLES
-          ========================== */}
+          <div className="absolute top-[-120px] right-[-80px] w-[350px] h-[350px] bg-white/10 rounded-full"></div>
 
-          <div className="absolute top-[-120px] right-[-80px] w-[450px] h-[450px] bg-white/10 rounded-full"></div>
+          <div className="absolute bottom-[-150px] left-[-100px] w-[420px] h-[420px] bg-white/10 rounded-full"></div>
 
-          <div className="absolute bottom-[-200px] left-[-120px] w-[520px] h-[520px] bg-white/10 rounded-full"></div>
+          {/* LOGO */}
 
-          <div className="absolute top-[100px] left-[280px] w-3 h-3 bg-white/40 rounded-full"></div>
-          <div className="absolute top-[140px] left-[320px] w-3 h-3 bg-white/40 rounded-full"></div>
-          <div className="absolute top-[180px] left-[360px] w-3 h-3 bg-white/40 rounded-full"></div>
-          <div className="absolute top-[220px] left-[300px] w-3 h-3 bg-white/40 rounded-full"></div>
+          <div className="flex items-center gap-4 relative z-10 mb-16">
 
-          {/* =========================
-              LOGO
-          ========================== */}
-
-          <div className="flex items-center gap-4 relative z-10 mb-28">
-
-            <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shadow-lg">
+            <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl">
               🎯
             </div>
 
-            <h1 className="text-3xl font-bold tracking-wide">
+            <h1 className="text-3xl font-bold text-white">
               Goal Portal
             </h1>
 
           </div>
 
-          {/* =========================
-              WELCOME TEXT
-          ========================== */}
+          {/* WELCOME */}
 
-          <div className="relative z-10 max-w-lg">
+          <div className="relative z-10 max-w-md">
 
-            <h2 className="text-6xl font-bold leading-tight mb-10">
+            <h2 className="text-5xl font-bold leading-tight text-white mb-6">
               Welcome Back!
             </h2>
 
-            <p className="text-2xl text-blue-100 leading-relaxed mb-16">
-
+            <p className="text-xl text-blue-100 leading-relaxed mb-12">
               Log in to your account to continue tracking
               your goals and achieving greatness.
-
             </p>
 
-            {/* =========================
-                FEATURES
-            ========================== */}
+            {/* FEATURES */}
 
-            <div className="space-y-10">
+            <div className="space-y-8">
 
-              {/* FEATURE 1 */}
+              {/* FEATURE */}
 
-              <div className="flex items-start gap-5">
+              <div className="flex items-start gap-4">
 
-                <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shadow-md">
+                <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-2xl">
                   🎯
                 </div>
 
                 <div>
 
-                  <h3 className="text-2xl font-bold mb-2">
+                  <h3 className="text-2xl font-semibold mb-1">
                     Set & Track Goals
                   </h3>
 
@@ -186,17 +133,17 @@ const Login = () => {
 
               </div>
 
-              {/* FEATURE 2 */}
+              {/* FEATURE */}
 
-              <div className="flex items-start gap-5">
+              <div className="flex items-start gap-4">
 
-                <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shadow-md">
+                <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-2xl">
                   📊
                 </div>
 
                 <div>
 
-                  <h3 className="text-2xl font-bold mb-2">
+                  <h3 className="text-2xl font-semibold mb-1">
                     Analytics Dashboard
                   </h3>
 
@@ -208,17 +155,17 @@ const Login = () => {
 
               </div>
 
-              {/* FEATURE 3 */}
+              {/* FEATURE */}
 
-              <div className="flex items-start gap-5">
+              <div className="flex items-start gap-4">
 
-                <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl shadow-md">
+                <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-2xl">
                   👥
                 </div>
 
                 <div>
 
-                  <h3 className="text-2xl font-bold mb-2">
+                  <h3 className="text-2xl font-semibold mb-1">
                     Team Collaboration
                   </h3>
 
@@ -236,30 +183,22 @@ const Login = () => {
 
         </div>
 
-        {/* =========================================================
-            RIGHT SIDE
-        ========================================================== */}
+        {/* RIGHT PANEL */}
 
-        <div className="flex items-center justify-center p-10 lg:p-16 bg-[#f8f9ff]">
-
-          {/* =========================
-              FORM CARD
-          ========================== */}
+        <div className="flex items-center justify-center px-8 py-10 bg-[#f7f8ff]">
 
           <form
             onSubmit={handleLogin}
-            className="w-full max-w-xl bg-white rounded-[35px] shadow-xl p-12"
+            className="w-full max-w-xl bg-white rounded-[30px] shadow-xl px-10 py-10"
           >
 
-            {/* =========================
-                LOCK ICON
-            ========================== */}
+            {/* LOCK ICON */}
 
-            <div className="flex justify-center mb-10">
+            <div className="flex justify-center mb-8">
 
-              <div className="w-28 h-28 rounded-full bg-indigo-100 flex items-center justify-center shadow-inner">
+              <div className="w-24 h-24 rounded-full bg-indigo-100 flex items-center justify-center">
 
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-4xl shadow-lg">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-3xl">
                   🔒
                 </div>
 
@@ -267,29 +206,25 @@ const Login = () => {
 
             </div>
 
-            {/* =========================
-                HEADING
-            ========================== */}
+            {/* HEADING */}
 
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
 
-              <h2 className="text-5xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl font-bold text-gray-800 mb-3">
                 Goal Portal Login
               </h2>
 
-              <p className="text-gray-500 text-xl">
+              <p className="text-gray-500 text-lg">
                 Enter your credentials to access your account
               </p>
 
             </div>
 
-            {/* =========================
-                EMAIL INPUT
-            ========================== */}
+            {/* EMAIL */}
 
-            <div className="mb-8">
+            <div className="mb-6">
 
-              <label className="block text-xl font-semibold text-gray-800 mb-3">
+              <label className="block text-lg font-semibold text-gray-700 mb-2">
                 Email
               </label>
 
@@ -300,18 +235,16 @@ const Login = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full border border-gray-300 rounded-2xl px-6 py-5 text-lg focus:outline-none focus:ring-4 focus:ring-blue-100 transition"
+                className="w-full border border-gray-300 rounded-2xl px-5 py-4 text-lg focus:outline-none focus:ring-4 focus:ring-blue-100"
               />
 
             </div>
 
-            {/* =========================
-                PASSWORD INPUT
-            ========================== */}
+            {/* PASSWORD */}
 
-            <div className="mb-10">
+            <div className="mb-8">
 
-              <label className="block text-xl font-semibold text-gray-800 mb-3">
+              <label className="block text-lg font-semibold text-gray-700 mb-2">
                 Password
               </label>
 
@@ -322,22 +255,20 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="w-full border border-gray-300 rounded-2xl px-6 py-5 text-lg focus:outline-none focus:ring-4 focus:ring-blue-100 transition"
+                className="w-full border border-gray-300 rounded-2xl px-5 py-4 text-lg focus:outline-none focus:ring-4 focus:ring-blue-100"
               />
 
             </div>
 
-            {/* =========================
-                LOGIN BUTTON
-            ========================== */}
+            {/* BUTTON */}
 
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-5 rounded-2xl text-2xl font-bold transition-all duration-300 ${
+              className={`w-full py-4 rounded-2xl text-xl font-bold transition-all duration-300 ${
                 loading
                   ? "bg-gray-400 text-white cursor-not-allowed"
-                  : "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:scale-[1.01] hover:shadow-xl"
+                  : "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-xl"
               }`}
             >
 
@@ -347,11 +278,9 @@ const Login = () => {
 
             </button>
 
-            {/* =========================
-                REGISTER LINK
-            ========================== */}
+            {/* REGISTER */}
 
-            <p className="text-center text-gray-600 mt-8 text-lg">
+            <p className="text-center text-gray-600 mt-6 text-lg">
 
               Don’t have an account?
 
