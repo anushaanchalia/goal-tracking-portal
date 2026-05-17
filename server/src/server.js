@@ -7,8 +7,11 @@ const authRoutes = require("./routes/authRoutes");
 const goalRoutes = require("./routes/goalRoutes");
 const checkinRoutes = require("./routes/checkinRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const initCronJobs = require("./utils/cronJobs");
 
 const app = express();
+
+initCronJobs();
 
 /* CORS */
 

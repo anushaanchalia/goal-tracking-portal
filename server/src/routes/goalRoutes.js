@@ -6,10 +6,19 @@ const {
   getPendingGoals,
   approveGoal,
   rejectGoal,
-  exportGoals
+  exportGoals,
+  pushSharedGoal,
+  updateGoalWeightage,
+  getAllGoals,
+  getManagerGoals
 } = require("../controllers/goalController");
 
 router.post("/", createGoals);
+router.post("/shared", pushSharedGoal);
+router.put("/weightage/:id", updateGoalWeightage);
+
+router.get("/all", getAllGoals);
+router.get("/manager/:managerId", getManagerGoals);
 
 router.get("/manager/pending/all", getPendingGoals);
 

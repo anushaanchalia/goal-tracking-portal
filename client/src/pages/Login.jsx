@@ -3,6 +3,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { FiTarget, FiLock, FiMail, FiEyeOff, FiEye, FiLogIn, FiTrendingUp, FiUsers } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
+import { useGoogleLogin } from "@react-oauth/google";
+import { useMsal } from "@azure/msal-react";
+import { jwtDecode } from "jwt-decode";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -16,55 +19,81 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e) => {
+  const { instance: msalInstance } = useMsal();
 
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-
   };
 
   const handleLogin = async (e) => {
-
     e.preventDefault();
-
     try {
-
       setLoading(true);
-
-      const response = await axios.post(
-        `${API_URL}/api/auth/login`,
-        formData
-      );
-
-      localStorage.setItem(
-        "token",
-        response.data.token
-      );
-
-      localStorage.setItem(
-        "user",
-        JSON.stringify(response.data.user)
-      );
-
+      const response = await axios.post(`${API_URL}/api/auth/login`, formData);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
       toast.success("Login Successful");
-
       setLoading(false);
-
       window.location.href = "/dashboard";
-
     } catch (error) {
+      toast.error(error.response?.data?.message || "Login Failed");
+      setLoading(false);
+    }
+  };
 
+  const executeSocialLogin = async (email, provider) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(`${API_URL}/api/auth/social-login`, { email });
+
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      toast.success(`${provider} Login Successful`);
+      setLoading(false);
+      window.location.href = "/dashboard";
+    } catch (error) {
       toast.error(
         error.response?.data?.message ||
-        "Login Failed"
+        `${provider} Login Failed. Are you registered?`
       );
-
       setLoading(false);
-
     }
+  };
 
+  const loginGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        // Fetch user info from Google using the access token
+        const userInfo = await axios.get(
+          'https://www.googleapis.com/oauth2/v3/userinfo',
+          { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } }
+        );
+        executeSocialLogin(userInfo.data.email, "Google");
+      } catch (error) {
+        toast.error("Failed to fetch Google profile");
+      }
+    },
+    onError: () => {
+      toast.error("Google Login Failed");
+    }
+  });
+
+  const loginMicrosoft = async () => {
+    try {
+      const response = await msalInstance.loginPopup({
+        scopes: ["user.read"]
+      });
+      // The response account contains the username (email)
+      const email = response.account.username;
+      executeSocialLogin(email, "Microsoft");
+    } catch (error) {
+      console.log(error);
+      toast.error("Microsoft Login Failed");
+    }
   };
 
   return (
@@ -235,12 +264,14 @@ const Login = () => {
             <div className="grid grid-cols-2 gap-3 lg:gap-4">
               <button
                 type="button"
+                onClick={() => loginGoogle()}
                 className="flex items-center justify-center gap-2 py-2.5 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 shadow-sm transition-all text-sm font-bold text-gray-700"
               >
                 <FcGoogle className="text-lg" /> Google
               </button>
               <button
                 type="button"
+                onClick={() => loginMicrosoft()}
                 className="flex items-center justify-center gap-2 py-2.5 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 shadow-sm transition-all text-sm font-bold text-gray-700"
               >
                 <div className="w-[14px] h-[14px] grid grid-cols-2 gap-[1px]">

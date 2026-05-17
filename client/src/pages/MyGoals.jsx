@@ -53,10 +53,19 @@ const MyGoals = () => {
                     
                     {/* Title & Status */}
                     <div className="flex items-start justify-between mb-3">
-                      <h2 className="text-lg font-bold text-gray-900 pr-2 leading-tight line-clamp-2">
-                        {goal.title}
-                      </h2>
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide shrink-0 ${
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2">
+                          <h2 className="text-xl font-bold text-gray-900 pr-2 leading-tight line-clamp-2">
+                            {goal.title}
+                          </h2>
+                          {goal.isShared && (
+                            <span className="px-2 py-0.5 rounded text-xs font-bold uppercase bg-blue-100 text-blue-700">
+                              Shared KPI
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <span className={`px-2 py-1 rounded text-xs font-bold uppercase tracking-wide shrink-0 ${
                           goal.approvalStatus === "APPROVED" ? "bg-green-100 text-green-700" : 
                           goal.approvalStatus === "REJECTED" ? "bg-red-100 text-red-700" : 
                           "bg-yellow-100 text-yellow-700"
@@ -66,17 +75,33 @@ const MyGoals = () => {
                     </div>
 
                     {/* Description */}
-                    <p className="mb-4 text-xs text-gray-500 line-clamp-2">
+                    <p className="mb-4 text-sm text-gray-500 line-clamp-2">
                       {goal.description}
                     </p>
 
                     {/* Details Grid */}
-                    <div className="grid grid-cols-2 gap-y-2 text-[11px] bg-gray-50 rounded-lg p-3 mb-4">
+                    <div className="grid grid-cols-2 gap-y-2 text-sm bg-gray-50 rounded-lg p-3 mb-4">
                       <p><span className="font-semibold text-gray-700">Area:</span> {goal.thrustArea}</p>
                       <p><span className="font-semibold text-gray-700">UOM:</span> {goal.uomType}</p>
                       <p><span className="font-semibold text-gray-700">Target:</span> {goal.targetValue}</p>
                       <p><span className="font-semibold text-gray-700">Done:</span> {goal.achievementValue}</p>
-                      <p><span className="font-semibold text-gray-700">Weight:</span> {goal.weightage}%</p>
+                      <p className="flex items-center gap-1">
+                        <span className="font-semibold text-gray-700">Weight:</span> {goal.weightage}%
+                        {goal.isShared && (
+                          <button 
+                            onClick={() => {
+                              const newWeight = prompt("Enter new weightage (must keep total 100%):", goal.weightage);
+                              if(newWeight) {
+                                axios.put(`${API_URL}/api/goals/weightage/${goal.id}`, { weightage: newWeight })
+                                  .then(() => fetchGoals())
+                                  .catch(() => alert("Failed to update"));
+                              }
+                            }}
+                            className="text-[#5263f9] hover:underline text-xs ml-1">
+                            Edit
+                          </button>
+                        )}
+                      </p>
                       <p>
                         <span className="font-semibold text-gray-700">Status:</span>{" "}
                         <span className={`font-bold ${goal.status === "Completed" ? "text-green-600" : "text-blue-600"}`}>
@@ -88,12 +113,12 @@ const MyGoals = () => {
                     {/* Progress Bar */}
                     <div className="mt-auto">
                       <div className="flex justify-between mb-1.5 items-end">
-                        <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wide">Progress</span>
-                        <span className="text-xs font-bold text-gray-900">{progress.toFixed(0)}%</span>
+                        <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">Progress</span>
+                        <span className="text-sm font-bold text-gray-900">{progress.toFixed(0)}%</span>
                       </div>
-                      <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                      <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
                         <div
-                          className="bg-[#5263f9] h-2 rounded-full transition-all duration-500"
+                          className="bg-[#5263f9] h-2.5 rounded-full transition-all duration-500"
                           style={{ width: `${progress}%` }}
                         ></div>
                       </div>

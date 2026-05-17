@@ -20,18 +20,15 @@ exports.createCheckin = async (req, res) => {
 
     let progressScore = 0;
 
-    if (goal.uomType === "Numeric" || goal.uomType === "Percentage") {
-
-      progressScore =
-        (actualValue / plannedValue) * 100;
-
-    }
-
-    if (goal.uomType === "Zero") {
-
-      progressScore =
-        actualValue === 0 ? 100 : 0;
-
+    if (goal.uomType.includes("Min") || goal.uomType === "Numeric" || goal.uomType === "Percentage") {
+      progressScore = (actualValue / plannedValue) * 100;
+    } else if (goal.uomType.includes("Max")) {
+      progressScore = (plannedValue / actualValue) * 100;
+    } else if (goal.uomType === "Zero") {
+      progressScore = actualValue === 0 ? 100 : 0;
+    } else if (goal.uomType === "Timeline") {
+      // For timeline, actualValue is timestamp of completion, plannedValue is deadline
+      progressScore = actualValue <= plannedValue ? 100 : 0;
     }
 
     const checkin = await prisma.checkin.create({

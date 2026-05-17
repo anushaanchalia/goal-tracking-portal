@@ -166,3 +166,72 @@ exports.exportGoals = async (req, res) => {
     });
   }
 };
+
+exports.pushSharedGoal = async (req, res) => {
+  try {
+    const { employeeIds, thrustArea, title, description, uomType, targetValue, weightage } = req.body;
+    const createdGoals = [];
+
+    for (const empId of employeeIds) {
+      const created = await prisma.goal.create({
+        data: {
+          employeeId: Number(empId),
+          thrustArea,
+          title,
+          description,
+          uomType,
+          targetValue: Number(targetValue),
+          weightage: Number(weightage),
+          isShared: true,
+          approvalStatus: "APPROVED", // Pre-approved by management
+          isLocked: true // Locked from editing title/target
+        }
+      });
+      createdGoals.push(created);
+    }
+    res.json(createdGoals);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.updateGoalWeightage = async (req, res) => {
+  try {
+    const goalId = Number(req.params.id);
+    const { weightage } = req.body;
+    
+    // Make sure total weightage validation is handled in frontend
+    const updated = await prisma.goal.update({
+      where: { id: goalId },
+      data: { weightage: Number(weightage) }
+    });
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getAllGoals = async (req, res) => {
+  try {
+    const goals = await prisma.goal.findMany();
+    res.json(goals);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getManagerGoals = async (req, res) => {
+  try {
+    const managerId = Number(req.params.managerId);
+    const goals = await prisma.goal.findMany({
+      where: {
+        employee: {
+          managerId: managerId
+        }
+      }
+    });
+    res.json(goals);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

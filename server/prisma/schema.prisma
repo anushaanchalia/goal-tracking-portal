@@ -8,14 +8,16 @@ datasource db {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  name        String
-  email       String   @unique
-  password    String
-  role        String
-  department  String?
-  managerId   Int?
-  goals       Goal[]
+  id            Int      @id @default(autoincrement())
+  employeeCode  String?  @unique
+  accountStatus String   @default("PENDING")
+  name          String
+  email         String   @unique
+  password      String
+  role          String
+  department    String?
+  managerId     Int?
+  goals         Goal[]
 }
 
 model Goal {
@@ -31,6 +33,8 @@ model Goal {
   isLocked         Boolean  @default(false)
   approvalStatus   String   @default("PENDING")
   managerComment   String?
+  isShared         Boolean  @default(false)
+  sharedGoalId     Int?
 
   employeeId Int
   employee   User @relation(fields: [employeeId], references: [id])
@@ -38,7 +42,16 @@ model Goal {
   createdAt DateTime @default(now())
   checkins Checkin[]
   auditLogs AuditLog[]
+}
 
+model EscalationLog {
+  id Int @id @default(autoincrement())
+  ruleTriggered String
+  details String
+  status String @default("PENDING")
+  employeeId Int?
+  managerId Int?
+  createdAt DateTime @default(now())
 }
 
 model Checkin {

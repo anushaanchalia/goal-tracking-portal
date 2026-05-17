@@ -83,11 +83,11 @@ const ManagerDashboard = () => {
                     </span>
                   </div>
 
-                  <p className="mb-4 text-xs text-gray-500 line-clamp-2">
+                  <p className="mb-4 text-sm text-gray-500 line-clamp-2">
                     {goal.description}
                   </p>
 
-                  <div className="grid grid-cols-2 gap-y-2 text-xs bg-gray-50 rounded-lg p-3 mb-4">
+                  <div className="grid grid-cols-2 gap-y-2 text-sm bg-gray-50 rounded-lg p-3 mb-4">
                     <p className="col-span-2"><span className="font-semibold text-gray-700">Employee:</span> {goal.employee.name}</p>
                     <p><span className="font-semibold text-gray-700">Weightage:</span> {goal.weightage}%</p>
                     <p><span className="font-semibold text-gray-700">UOM:</span> {goal.uomType}</p>
@@ -96,7 +96,7 @@ const ManagerDashboard = () => {
                   <textarea
                     placeholder="Optional feedback for rejection..."
                     rows="2"
-                    className="w-full border border-gray-200 text-xs p-2 rounded-lg mb-3 focus:outline-none focus:border-[#5263f9] focus:ring-1 focus:ring-[#5263f9] transition-colors resize-none text-gray-700 placeholder-gray-400"
+                    className="w-full border border-gray-200 text-sm p-3 rounded-lg mb-4 focus:outline-none focus:border-[#5263f9] focus:ring-1 focus:ring-[#5263f9] transition-colors resize-none text-gray-700 placeholder-gray-400 shadow-inner"
                     onChange={(e) => setComments({ ...comments, [goal.id]: e.target.value })}
                   />
 
@@ -104,7 +104,7 @@ const ManagerDashboard = () => {
                     <button
                       onClick={() => approveGoal(goal.id)}
                       disabled={loadingId === goal.id}
-                      className={`text-xs font-bold uppercase tracking-wide py-2.5 rounded-lg transition-colors shadow-sm ${
+                      className={`text-sm font-bold uppercase tracking-wide py-2.5 rounded-lg transition-colors shadow-sm ${
                         loadingId === goal.id
                           ? "bg-gray-400 text-white cursor-not-allowed"
                           : "bg-[#10b981] hover:bg-[#059669] text-white"
@@ -116,7 +116,7 @@ const ManagerDashboard = () => {
                     <button
                       onClick={() => rejectGoal(goal.id)}
                       disabled={loadingId === goal.id}
-                      className={`text-xs font-bold uppercase tracking-wide py-2.5 rounded-lg transition-colors shadow-sm ${
+                      className={`text-sm font-bold uppercase tracking-wide py-2.5 rounded-lg transition-colors shadow-sm ${
                         loadingId === goal.id
                           ? "bg-gray-400 text-white cursor-not-allowed"
                           : "bg-white border border-[#f43f5e] text-[#f43f5e] hover:bg-[#f43f5e] hover:text-white"

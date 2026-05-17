@@ -1,357 +1,107 @@
-# 🎯 Goal Tracking Portal
+# 🎯 AtomQuest Hackathon 1.0 - Goal Tracking Portal
 
-A full-stack enterprise-style Goal Tracking and Performance Management System built using React.js, Node.js, Express.js, Prisma ORM, and PostgreSQL.
+A full-stack, enterprise-grade Goal Tracking and Performance Management System built using React.js, Node.js, Express.js, Prisma ORM, and PostgreSQL.
 
-The platform allows employees to create goals, managers to review and approve goals, and administrators to monitor organizational activities through audit logs and analytics dashboards.
-
----
-
-# 🌐 Live Demo
-
-## Frontend
-https://goal-tracking-portal.vercel.app
-
-## Backend
-https://goal-tracking-portal.onrender.com
+This project was built to solve the fragmentation of manual goal tracking by offering an intuitive, reliable, and audit-ready digital portal. It supports the full lifecycle of employee goals—from creation and alignment to quarterly check-ins and performance visibility.
 
 ---
 
-# 🚀 Features
+## 🌟 Key Hackathon Features Implemented
 
-## 🎨 Premium UI/UX Design
-- **Clean SaaS Aesthetic:** Modern, high-end design language utilizing soft gradients, dynamic hovers, and premium typography.
-- **Strict Viewport Management:** App-like "no-scroll" experience ensuring the main layout remains locked while only content areas scroll.
-- **Compact & Responsive:** Highly dense, card-based grid layouts that maximize screen real estate across all devices.
-- **Unified Dashboards:** Consistent styling and interaction patterns across Employee, Manager, and Admin panels.
+### 1. Goal Creation & Alignment (Phase 1)
+- **Role-Based Workflows:** Employees define objectives (Thrust Area, Title, Description, Targets, Weightage).
+- **Validation Engine:** Enforces business logic (Total weightage = 100%, Min weightage = 10%, Max goals = 8).
+- **Shared Departmental KPIs (Bonus):** Admins/Managers can push top-down KPIs to multiple employees. Employees can only adjust the weightage of these shared goals, ensuring organizational alignment.
+- **Locking Mechanism:** Goals are strictly locked post-approval to maintain data integrity.
 
----
+### 2. Achievement Tracking & Check-ins (Phase 2)
+- **Quarterly Check-ins:** Intuitive interface for employees to log Actual Achievements against Planned Targets.
+- **Smart Progress Algorithms:** Dynamic calculation formulas based on UOM types:
+  - **Min (Higher is better):** E.g., Revenue, Sales. (Achievement ÷ Target)
+  - **Max (Lower is better):** E.g., Turnaround Time. (Target ÷ Achievement)
+  - **Timeline:** Date-based completion tracking.
+  - **Zero-Based:** Success is evaluated on exactly zero incidents (e.g., Safety).
+- **Manager Moderation:** Managers can review progress, approve check-ins, and provide structured feedback.
 
-## 🔐 Authentication & Authorization
-- JWT Authentication
-- Secure Password Hashing using bcrypt
-- Role-Based Access Control (RBAC)
-- Employee, Manager, and Admin Roles
-- Protected Frontend Routes
-
----
-
-## 👨‍💼 Employee Features
-- Create Multiple Goals
-- Goal Weightage Validation
-- Goal Progress Tracking
-- Quarterly Check-ins
-- KPI Achievement Monitoring
-- Analytics Dashboard
-- CSV Report Export
+### 3. Advanced Modules & "Wow" Factors
+- **Dynamic Analytics Dashboard (Bonus):** A visually stunning, real-time Recharts dashboard featuring Quarter-on-Quarter (QoQ) trends, Goal Distribution by Thrust Area, and Manager Effectiveness comparisons. Role-based visibility ensures Admins see organizational stats, Managers see team stats, and Employees see personal stats.
+- **Rule-Based Escalation Engine (Bonus):** A backend cron-job system that monitors pending actions (e.g., goals pending approval > 7 days, missed check-ins) and automatically triggers and logs escalations for Admin/HR review.
+- **Audit Trails:** Immutable logging of all state changes, capturing who changed what and when.
 
 ---
 
-## 👨‍💻 Manager Features
-- Approve Employee Goals
-- Reject Goals with Comments
-- View Pending Approvals
-- Goal Locking Workflow
+# 🧰 Tech Stack & Architecture
+
+## Frontend (Client)
+- **Framework:** React.js + Vite
+- **Routing:** React Router DOM v7
+- **Styling:** Tailwind CSS (Premium Light SaaS Aesthetic)
+- **Data Visualization:** Recharts
+- **HTTP Client:** Axios
+
+## Backend (Server)
+- **Runtime:** Node.js + Express.js
+- **Database ORM:** Prisma
+- **Database:** PostgreSQL
+- **Authentication:** JWT (JSON Web Tokens) & bcryptjs
+- **Task Scheduling:** node-cron (for Escalation Engine)
+- **Exporting:** json2csv
 
 ---
 
-## 🛠️ Admin Features
-- Audit Logs Monitoring
-- Unlock Locked Goals
-- Approval Change Tracking
-- Administrative Controls
+# 🚀 Local Development Setup
 
----
-
-# 🧰 Tech Stack
-
-## Frontend
-- React.js
-- React Router DOM
-- Axios
-- Tailwind CSS
-- Recharts
-- React Hot Toast
-- Vite
-
----
-
-## Backend
-- Node.js
-- Express.js
-- Prisma ORM
-- PostgreSQL
-- JWT Authentication
-- bcryptjs
-- json2csv
-
----
-
-# 🗄️ Database Models
-
-## User Model
-- Employee
-- Manager
-- Admin
-
-## Goal Model
-- Goal Information
-- KPI Tracking
-- Approval Workflow
-- Locking Mechanism
-
-## Checkin Model
-- Quarterly Reviews
-- Planned vs Actual Tracking
-- Progress Score Calculation
-
-## AuditLog Model
-- Approval Logs
-- Unlock History
-- Change Tracking
-
----
-
-# 🏗️ Project Architecture
-
-```bash
-goal-tracking-portal/
-│
-├── client/
-│   ├── public/
-│   │   └── screenshots/
-│   │
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── hooks/
-│   │   ├── context/
-│   │   ├── layouts/
-│   │   ├── services/
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│
-├── server/
-│   ├── prisma/
-│   │   ├── migrations/
-│   │   └── schema.prisma
-│   │
-│   ├── src/
-│   │   ├── config/
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   ├── routes/
-│   │   ├── utils/
-│   │   └── server.js
-
-# 📡 API Endpoints
-
-## 🔐 Authentication Routes
-
-| Method | Endpoint             | Description   |
-| ------ | -------------------- | ------------- |
-| POST   | `/api/auth/register` | Register User |
-| POST   | `/api/auth/login`    | Login User    |
-
----
-
-## 🎯 Goal Routes
-
-| Method | Endpoint                         | Description        |
-| ------ | -------------------------------- | ------------------ |
-| POST   | `/api/goals`                     | Create Goals       |
-| GET    | `/api/goals/:employeeId`         | Get Employee Goals |
-| GET    | `/api/goals/manager/pending/all` | Get Pending Goals  |
-| PUT    | `/api/goals/approve/:id`         | Approve Goal       |
-| PUT    | `/api/goals/reject/:id`          | Reject Goal        |
-| GET    | `/api/goals/export/report`       | Export CSV Report  |
-
----
-
-## 📈 Check-in Routes
-
-| Method | Endpoint                | Description               |
-| ------ | ----------------------- | ------------------------- |
-| POST   | `/api/checkins`         | Create Quarterly Check-in |
-| GET    | `/api/checkins/:goalId` | Get Goal Check-ins        |
-
----
-
-## 🛡️ Admin Routes
-
-| Method | Endpoint                | Description    |
-| ------ | ----------------------- | -------------- |
-| GET    | `/api/admin/logs`       | Get Audit Logs |
-| PUT    | `/api/admin/unlock/:id` | Unlock Goal    |
-
----
-
-# ⚙️ Installation Guide
-
-## Clone Repository
-
+## 1. Clone Repository
 ```bash
 git clone https://github.com/anushaanchalia/goal-tracking-portal.git
+cd goal-tracking-portal
 ```
 
----
-
-## Frontend Setup
-
-```bash
-cd client
-
-npm install
-
-npm run dev
-```
-
----
-
-## Backend Setup
-
+## 2. Server Setup (Backend)
 ```bash
 cd server
-
 npm install
 
+# Create a .env file based on .env.example
+# Ensure you have a running PostgreSQL database
+echo 'DATABASE_URL="postgresql://user:pass@localhost:5432/goalportal"' > .env
+echo 'PORT=5000' >> .env
+echo 'JWT_SECRET="super_secret_key"' >> .env
+
+# Push Prisma Schema and Generate Client
+npx prisma db push
 npx prisma generate
 
-npx prisma migrate dev
+# Start the development server
+npm run dev
+```
 
+## 3. Client Setup (Frontend)
+```bash
+cd client
+npm install
+
+# Point the client to your local backend
+echo 'VITE_API_URL="http://localhost:5000"' > .env
+
+# Start the Vite development server
 npm run dev
 ```
 
 ---
 
-# 🔑 Environment Variables
-
-## Client (.env)
-
-```env
-VITE_API_URL=https://goal-tracking-portal.onrender.com
-```
-
----
-
-## Server (.env)
-
-```env
-DATABASE_URL=your_database_url
-
-JWT_SECRET=your_secret_key
-```
-
----
-
-# 🚀 Deployment
-
-## Frontend Deployment
-
-* Vercel
-
-## Backend Deployment
-
-* Render
-
-## Database
-
-* PostgreSQL
-
----
-
-# 📊 Key Functionalities
-
-## Goal Approval Workflow
-
-1. Employee Creates Goal
-2. Manager Reviews Goal
-3. Manager Approves/Rejects
-4. Approved Goals Become Locked
-5. Admin Can Unlock Goals
-
----
-
-## Quarterly KPI Tracking
-
-* Planned Value
-* Actual Achievement
-* Progress Score Calculation
-* KPI Monitoring
-
----
-
-## Analytics Dashboard
-
-* Goal Completion Pie Chart
-* Progress Bar Chart
-* CSV Report Generation
-
----
-
-# 🔒 Security Features
-
-* Password Hashing
-* JWT Authentication
-* Protected Routes
-* Role-Based Authorization
-* Secure API Communication
-
----
-
-# 📸 Screenshots
-
-## Login Page
-
-![Login Page](./client/public/screenshots/login.png)
-
----
-
-## Employee Dashboard
-
-![Employee Dashboard](./client/public/screenshots/employee-dashboard.png)
-
----
-
-## Manager Dashboard
-
-![Manager Dashboard](./client/public/screenshots/manager-dashboard.png)
-
----
-
-## Analytics Dashboard
-
-![Analytics Dashboard](./client/public/screenshots/analytics-dashboard.png)
-
----
-
-## Admin Dashboard
-
-![Admin Dashboard](./client/public/screenshots/admin-dashboard.png)
-
----
-
-# 🔮 Future Enhancements
-
-* Email Notifications
-* Real-Time Chat
-* AI-Based Goal Recommendations
-* Advanced Analytics
-* Team Performance Dashboard
-* Mobile Application
-* Notification System
-* File Upload Support
+# 🎨 UI/UX Design Philosophy
+- **Clean SaaS Aesthetic:** The portal uses a unified "White and Blue" brand identity, utilizing soft slate backgrounds (`#f8fafc`), clean white cards with faint borders, and deep indigo (`#5263f9`) primary actions.
+- **Micro-Interactions:** Subtle hover states, shadow elevations, and scale transforms make the application feel responsive, dynamic, and professional.
+- **Readability Focused:** Typography is spaced and sized meticulously (utilizing `text-sm` and `text-base` prominently) to reduce eye strain for corporate users.
 
 ---
 
 # 👨‍💻 Author
 
-## Anusha Anchalia
-
-Full Stack Developer
+**Anusha Anchalia**  
+Full Stack Developer & Hackathon Participant  
+Built for AtomQuest Hackathon 1.0
 
 ---
-
-# 📄 License
-
-This project is developed for educational and learning purposes.
+*This project is open-source and developed for educational and hackathon purposes.*

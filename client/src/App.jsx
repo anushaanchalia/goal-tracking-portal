@@ -18,118 +18,134 @@ import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import RoleRoute from "./components/RoleRoute";
 
+import { PublicClientApplication } from "@azure/msal-browser";
+import { MsalProvider } from "@azure/msal-react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+const msalConfig = {
+  auth: {
+    clientId: "YOUR_MICROSOFT_CLIENT_ID", // Placeholder for Microsoft Client ID
+    authority: "https://login.microsoftonline.com/common",
+    redirectUri: "/",
+  }
+};
+
+const msalInstance = new PublicClientApplication(msalConfig);
+
 function App() {
 
   return (
+    <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
+      <MsalProvider instance={msalInstance}>
+        <BrowserRouter>
 
-    <BrowserRouter>
+          <Routes>
 
-      <Routes>
+            {/* Public Routes */}
 
-        {/* Public Routes */}
+            <Route
+              path="/"
+              element={<Login />}
+            />
 
-        <Route
-          path="/"
-          element={<Login />}
-        />
+            <Route
+              path="/register"
+              element={<Register />}
+            />
 
-        <Route
-          path="/register"
-          element={<Register />}
-        />
+            {/* Protected Employee Routes */}
 
-        {/* Protected Employee Routes */}
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+            <Route
+              path="/create-goals"
+              element={
+                <ProtectedRoute>
+                  <CreateGoals />
+                </ProtectedRoute>
+              }
+            />
 
-        <Route
-          path="/create-goals"
-          element={
-            <ProtectedRoute>
-              <CreateGoals />
-            </ProtectedRoute>
-          }
-        />
+            <Route
+              path="/my-goals"
+              element={
+                <ProtectedRoute>
+                  <MyGoals />
+                </ProtectedRoute>
+              }
+            />
 
-        <Route
-          path="/my-goals"
-          element={
-            <ProtectedRoute>
-              <MyGoals />
-            </ProtectedRoute>
-          }
-        />
+            <Route
+              path="/checkins"
+              element={
+                <ProtectedRoute>
+                  <QuarterlyCheckin />
+                </ProtectedRoute>
+              }
+            />
 
-        <Route
-          path="/checkins"
-          element={
-            <ProtectedRoute>
-              <QuarterlyCheckin />
-            </ProtectedRoute>
-          }
-        />
+            <Route
+              path="/analytics"
+              element={
+                <ProtectedRoute>
+                  <Analytics />
+                </ProtectedRoute>
+              }
+            />
 
-        <Route
-          path="/analytics"
-          element={
-            <ProtectedRoute>
-              <Analytics />
-            </ProtectedRoute>
-          }
-        />
+            {/* Manager Routes */}
 
-        {/* Manager Routes */}
+            <Route
+              path="/manager"
+              element={
+                <ProtectedRoute>
 
-        <Route
-          path="/manager"
-          element={
-            <ProtectedRoute>
+                  <RoleRoute role="MANAGER">
 
-              <RoleRoute role="MANAGER">
+                    <ManagerDashboard />
 
-                <ManagerDashboard />
+                  </RoleRoute>
 
-              </RoleRoute>
+                </ProtectedRoute>
+              }
+            />
 
-            </ProtectedRoute>
-          }
-        />
+            {/* Admin Routes */}
 
-        {/* Admin Routes */}
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
 
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
+                  <RoleRoute role="ADMIN">
 
-              <RoleRoute role="ADMIN">
+                    <AdminDashboard />
 
-                <AdminDashboard />
+                  </RoleRoute>
 
-              </RoleRoute>
+                </ProtectedRoute>
+              }
+            />
 
-            </ProtectedRoute>
-          }
-        />
+            {/* Fallback Route */}
 
-        {/* Fallback Route */}
+            <Route
+              path="*"
+              element={<Navigate to="/" />}
+            />
 
-        <Route
-          path="*"
-          element={<Navigate to="/" />}
-        />
+          </Routes>
 
-      </Routes>
-
-    </BrowserRouter>
-
+        </BrowserRouter>
+      </MsalProvider>
+    </GoogleOAuthProvider>
   );
 
 }
