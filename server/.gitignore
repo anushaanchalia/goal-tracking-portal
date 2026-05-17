@@ -28,3 +28,7 @@ Thumbs.db
 # IDE Files
 .vscode/
 .idea/
+
+.env
+.env.local
+.env.production

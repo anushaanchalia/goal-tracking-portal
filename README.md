@@ -26,9 +26,10 @@ This project was built to solve the fragmentation of manual goal tracking by off
 ### 3. Advanced Modules & "Wow" Factors
 - **Identity Security & Approval Workflow:** Robust user registration pipeline where new users are locked out (Pending status) until an Admin explicitly approves them. Unique `EMP-XXXX` ID generation for every user, visible across the entire platform.
 - **✨ AI Goal Refiner (Simulated):** A visually striking button within the Create Goals panel that hits a mock LLM backend. It automatically rewrites basic user input into professional SMART (Specific, Measurable, Achievable, Relevant, Time-bound) goals with a realistic 1.5s processing delay.
-- **Dynamic Analytics Dashboard (Bonus):** A visually stunning, real-time Recharts dashboard featuring Quarter-on-Quarter (QoQ) trends, Goal Distribution by Thrust Area, and Manager Effectiveness comparisons. Role-based visibility ensures Admins see organizational stats, Managers see team stats, and Employees see personal stats.
+- **Dynamic Analytics Dashboard (Bonus):** A visually stunning, real-time Recharts dashboard featuring Quarter-on-Quarter (QoQ) trends, Goal Distribution by Thrust Area, and Manager Effectiveness comparisons. Role-based visibility ensures Admins see organizational stats, Managers see team stats, and Employees see personal stats. **Includes a dynamic "View Analytics For" dropdown filter allowing Admins and Managers to isolate the charts to specific employees using their unique `EMP-XXXX` ID.**
 - **Rule-Based Escalation Engine (Bonus):** A backend cron-job system that monitors pending actions (e.g., goals pending approval > 7 days, missed check-ins) and automatically triggers and logs escalations for Admin/HR review.
 - **Audit Trails:** Immutable logging of all state changes, capturing who changed what and when.
+- **Employee Analytics Filtering (NEW):** Admins and Managers can dynamically filter analytics dashboards employee-wise using a dropdown selector. KPI charts, goal completion metrics, and progress insights automatically refresh based on the selected employee.
 
 ---
 
