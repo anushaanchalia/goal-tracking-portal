@@ -10,6 +10,7 @@ const AdminDashboard = () => {
   const [logs, setLogs] = useState([]);
   const [escalations, setEscalations] = useState([]);
   const [loadingGoalId, setLoadingGoalId] = useState(null);
+  const [pendingUsers, setPendingUsers] = useState([]);
 
   const [sharedGoal, setSharedGoal] = useState({
     employeeIds: "",
@@ -24,6 +25,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     if (activeTab === "audit") fetchLogs();
     if (activeTab === "escalations") fetchEscalations();
+    if (activeTab === "user_approvals") fetchPendingUsers();
   }, [activeTab]);
 
   const fetchLogs = async () => {
@@ -41,6 +43,26 @@ const AdminDashboard = () => {
       setEscalations(response.data);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const fetchPendingUsers = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/admin/users/pending`);
+      setPendingUsers(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const approveUser = async (id) => {
+    try {
+      await axios.put(`${API_URL}/api/admin/users/approve/${id}`);
+      toast.success("User Approved");
+      fetchPendingUsers();
+    } catch (error) {
+      console.log(error);
+      toast.error("Approval Failed");
     }
   };
 
@@ -90,8 +112,8 @@ const AdminDashboard = () => {
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-4 mb-6 border-b border-gray-200 pb-2">
-            {["audit", "escalations", "push_goal"].map((tab) => (
+          <div className="flex gap-4 mb-6 border-b border-gray-200 pb-2 overflow-x-auto">
+            {["audit", "escalations", "push_goal", "user_approvals"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -231,6 +253,41 @@ const AdminDashboard = () => {
                   Push Shared Goal
                 </button>
               </form>
+            </div>
+          )}
+
+          {activeTab === "user_approvals" && (
+            <div>
+              {pendingUsers.length === 0 ? (
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 text-center">
+                  <p className="text-gray-500 text-sm">No pending user registrations.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 pb-8">
+                  {pendingUsers.map((user) => (
+                    <div key={user.id} className="bg-white shadow-sm hover:shadow-md transition-all border border-gray-100 rounded-xl p-5 relative flex flex-col">
+                      <div className="flex justify-between items-start mb-3">
+                        <h2 className="text-lg font-semibold text-gray-800">{user.name}</h2>
+                        <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs font-semibold uppercase tracking-wide">
+                          {user.role}
+                        </span>
+                      </div>
+                      <div className="mb-4">
+                        <p className="text-sm text-gray-600"><span className="font-semibold">Email:</span> {user.email}</p>
+                        <p className="text-sm text-gray-600"><span className="font-semibold">Employee ID:</span> {user.employeeCode || "N/A"}</p>
+                      </div>
+                      <div className="mt-auto flex justify-end">
+                        <button
+                          onClick={() => approveUser(user.id)}
+                          className="bg-[#10b981] hover:bg-[#059669] text-white text-sm font-bold uppercase tracking-wide px-4 py-2 rounded-lg transition-colors shadow-sm"
+                        >
+                          Approve User
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 

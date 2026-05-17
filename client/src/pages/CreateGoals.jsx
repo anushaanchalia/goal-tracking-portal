@@ -72,6 +72,32 @@ const CreateGoals = () => {
     }
   };
 
+  const enhanceWithAI = async (index) => {
+    const goal = goals[index];
+    if (!goal.title && !goal.description) {
+      toast.error("Please enter a title or description first");
+      return;
+    }
+    
+    try {
+      const toastId = toast.loading("✨ Enhancing with AI...");
+      const response = await axios.post(`${API_URL}/api/ai/refine-goal`, {
+        title: goal.title,
+        description: goal.description,
+        uomType: goal.uomType
+      });
+      
+      const updatedGoals = [...goals];
+      updatedGoals[index].title = response.data.title;
+      updatedGoals[index].description = response.data.description;
+      setGoals(updatedGoals);
+      
+      toast.success("Goal Enhanced!", { id: toastId });
+    } catch (error) {
+      toast.error("AI Enhancement Failed");
+    }
+  };
+
   return (
     <div className="h-screen bg-[#f8fafc] flex flex-col font-sans overflow-hidden">
       <Navbar />
@@ -117,8 +143,17 @@ const CreateGoals = () => {
                   </div>
                 </div>
 
-                <div className="mb-3">
-                  <label className="block text-[11px] font-bold text-gray-600 uppercase tracking-wide mb-1">Description</label>
+                <div className="mb-3 relative">
+                  <div className="flex justify-between items-center mb-1">
+                    <label className="block text-[11px] font-bold text-gray-600 uppercase tracking-wide">Description</label>
+                    <button
+                      type="button"
+                      onClick={() => enhanceWithAI(index)}
+                      className="text-[10px] font-bold bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-2 py-1 rounded hover:shadow-md transition-all flex items-center gap-1"
+                    >
+                      ✨ Enhance with AI
+                    </button>
+                  </div>
                   <textarea
                     name="description"
                     placeholder="Briefly describe the objective..."

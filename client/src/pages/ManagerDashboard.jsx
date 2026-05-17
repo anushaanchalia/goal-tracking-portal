@@ -10,6 +10,8 @@ const ManagerDashboard = () => {
   const [loadingId, setLoadingId] = useState(null);
   const [comments, setComments] = useState({});
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     fetchGoals();
   }, []);
@@ -60,9 +62,16 @@ const ManagerDashboard = () => {
       <div className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
           
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-800">Manager Panel</h1>
-            <p className="text-sm text-gray-500">Review and moderate pending employee goals.</p>
+          <div className="mb-6 flex justify-between items-end">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-800">Manager Panel</h1>
+              <p className="text-sm text-gray-500">Review and moderate pending employee goals.</p>
+            </div>
+            {user?.employeeCode && (
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 uppercase tracking-wide">
+                ID: {user.employeeCode}
+              </span>
+            )}
           </div>
 
           {goals.length === 0 && (
@@ -88,7 +97,7 @@ const ManagerDashboard = () => {
                   </p>
 
                   <div className="grid grid-cols-2 gap-y-2 text-sm bg-gray-50 rounded-lg p-3 mb-4">
-                    <p className="col-span-2"><span className="font-semibold text-gray-700">Employee:</span> {goal.employee.name}</p>
+                    <p className="col-span-2"><span className="font-semibold text-gray-700">Employee:</span> {goal.employee.name} {goal.employee.employeeCode && <span className="text-xs bg-gray-200 text-gray-700 px-1.5 py-0.5 rounded ml-1 font-mono">{goal.employee.employeeCode}</span>}</p>
                     <p><span className="font-semibold text-gray-700">Weightage:</span> {goal.weightage}%</p>
                     <p><span className="font-semibold text-gray-700">UOM:</span> {goal.uomType}</p>
                   </div>

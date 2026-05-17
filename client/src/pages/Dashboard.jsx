@@ -21,10 +21,15 @@ const Dashboard = () => {
               Here's an overview of your goals and progress. Let's make today productive.
             </p>
           </div>
-          <div className="mt-6 md:mt-0 relative z-10">
+          <div className="mt-6 md:mt-0 relative z-10 flex flex-col items-end gap-2">
             <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-[#eef2ff] text-[#5263f9]">
               Role: {user?.role}
             </span>
+            {user?.employeeCode && (
+              <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-bold bg-indigo-100 text-indigo-800 border border-indigo-200">
+                ID: {user.employeeCode}
+              </span>
+            )}
           </div>
 
           {/* Banner Decorative Elements */}

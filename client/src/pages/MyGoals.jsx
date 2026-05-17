@@ -30,9 +30,16 @@ const MyGoals = () => {
       <div className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
           
-          <div className="mb-6">
-            <h1 className="text-2xl font-extrabold text-gray-900">My Goals</h1>
-            <p className="text-sm text-gray-500">Track and review your quarterly objectives.</p>
+          <div className="mb-6 flex justify-between items-end">
+            <div>
+              <h1 className="text-2xl font-extrabold text-gray-900">My Goals</h1>
+              <p className="text-sm text-gray-500">Track and review your quarterly objectives.</p>
+            </div>
+            {user?.employeeCode && (
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 uppercase tracking-wide">
+                ID: {user.employeeCode}
+              </span>
+            )}
           </div>
 
           {goals.length === 0 && (

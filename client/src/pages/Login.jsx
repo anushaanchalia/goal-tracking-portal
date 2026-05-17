@@ -64,23 +64,15 @@ const Login = () => {
     }
   };
 
-  const loginGoogle = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      try {
-        // Fetch user info from Google using the access token
-        const userInfo = await axios.get(
-          'https://www.googleapis.com/oauth2/v3/userinfo',
-          { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } }
-        );
-        executeSocialLogin(userInfo.data.email, "Google");
-      } catch (error) {
-        toast.error("Failed to fetch Google profile");
-      }
-    },
-    onError: () => {
-      toast.error("Google Login Failed");
+  const loginGoogle = () => {
+    // Simulated Google Login since there are no client IDs
+    const email = window.prompt("Simulate Google Login - Enter your Google email:");
+    if (email) {
+      executeSocialLogin(email, "Google");
+    } else {
+      toast.error("Google Login Cancelled");
     }
-  });
+  };
 
   const loginMicrosoft = async () => {
     try {
