@@ -12,6 +12,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const Analytics = () => {
 
   const [goals, setGoals] = useState([]);
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState("ALL");
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -34,15 +35,32 @@ const Analytics = () => {
     }
   };
 
-  const completedCount = goals.filter((g) => g.achievementValue >= g.targetValue).length;
-  const pendingCount = goals.length - completedCount;
+  // Extract unique employees
+  const uniqueEmployees = [];
+  if (user.role === "ADMIN" || user.role === "MANAGER") {
+    const map = new Map();
+    goals.forEach((g) => {
+      if (g.employee && !map.has(g.employee.id)) {
+        map.set(g.employee.id, g.employee);
+        uniqueEmployees.push(g.employee);
+      }
+    });
+  }
+
+  // Filter goals based on selection
+  const displayedGoals = (user.role === "ADMIN" || user.role === "MANAGER") && selectedEmployeeId !== "ALL"
+    ? goals.filter((g) => g.employeeId === Number(selectedEmployeeId))
+    : goals;
+
+  const completedCount = displayedGoals.filter((g) => g.achievementValue >= g.targetValue).length;
+  const pendingCount = displayedGoals.length - completedCount;
 
   const statusData = [
     { name: "Completed", value: completedCount },
     { name: "Pending", value: pendingCount },
   ];
 
-  const progressData = goals.map((goal) => ({
+  const progressData = displayedGoals.map((goal) => ({
     name: goal.title.substring(0, 15) + '...',
     progress: goal.achievementValue,
     target: goal.targetValue,
@@ -79,6 +97,26 @@ const Analytics = () => {
             </a>
           </div>
 
+          {/* Employee Filter for Admin/Manager */}
+          {(user.role === "ADMIN" || user.role === "MANAGER") && (
+            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm mb-6 flex flex-col md:flex-row items-start md:items-center gap-4">
+              <label htmlFor="employeeSelect" className="font-semibold text-gray-700">View Analytics For:</label>
+              <select
+                id="employeeSelect"
+                value={selectedEmployeeId}
+                onChange={(e) => setSelectedEmployeeId(e.target.value)}
+                className="p-2.5 border border-gray-300 rounded-lg max-h-48 overflow-y-auto w-full md:w-80 focus:ring-2 focus:ring-[#5263f9] focus:outline-none"
+              >
+                <option value="ALL">Aggregate (All Employees)</option>
+                {uniqueEmployees.map(emp => (
+                  <option key={emp.id} value={emp.id}>
+                    {emp.name} ({emp.employeeCode || `ID: ${emp.id}`})
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
           {/* KPI Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
@@ -88,7 +126,7 @@ const Analytics = () => {
                   <FiTarget className="text-lg" />
                 </div>
               </div>
-              <h3 className="text-3xl font-bold text-gray-900">{goals.length}</h3>
+              <h3 className="text-3xl font-bold text-gray-900">{displayedGoals.length}</h3>
             </div>
 
             <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
